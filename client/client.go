@@ -24,6 +24,7 @@ func init() {
 
 func main() {
 	flag.Parse()
+
 	if Target == "" {
 		fmt.Println("缺少目标地址")
 		os.Exit(0)
@@ -52,7 +53,8 @@ func main() {
 	for {
 		input, _ := inputReader.ReadString('\n') // 读取用户输入
 		inputInfo := strings.Trim(input, "\r\n")
-		if strings.ToUpper(inputInfo) == "Q" { // 如果输入q就退出
+
+		if strings.EqualFold(inputInfo, "Q") { // 如果输入q就退出
 			return
 		}
 
@@ -70,6 +72,7 @@ func main() {
 
 		buf := [512]byte{}
 		n, err := conn.Read(buf[:])
+
 		if err != nil {
 			fmt.Println("recv failed, err:", err)
 			return
